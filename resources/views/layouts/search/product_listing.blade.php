@@ -83,7 +83,7 @@
   @endphp            
 @endforeach
 @if($total_products==0)
-<div class="col-lg aside">
+  <div class="col-lg aside">
             <div class="prd-grid-wrap">
               <div class="page404-bg">
                 <div class="page404-text">
@@ -97,6 +97,48 @@
                 </svg>
               </div>
             </div>
-</div>
+  </div>
 @endif
 </div>
+@if(count($searched)<$itemCount)
+<!-- <div class="loader-horizontal-sm js-loader-horizontal-sm d-none" data-loader-horizontal style="opacity: 0;"><span></span></div> -->
+    <div class="circle-loader-wrap">
+        <div class="circle-loader">
+            <a href="#" id="customLoadMore" data-total="{{$itemCount}}" data-loaded="{{count($searched)}}" data-load="4" class="lazyload js-circle-loader">
+                <svg id="svg_d" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50%" cy="50%" r="63" fill="transparent"></circle>
+                    <circle class="js-circle-bar" cx="50%" cy="50%" r="63" fill="transparent"></circle>
+                </svg>
+                <svg id="svg_m" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50%" cy="50%" r="50" fill="transparent"></circle>
+                    <circle class="js-circle-bar" cx="50%" cy="50%" r="50" fill="transparent"></circle>
+                </svg>
+                  <div class="circle-loader-text">Load More</div>
+                  <div class="circle-loader-text-alt"><span >{{count($searched)}}</span>&nbsp;out of&nbsp;<span >{{$itemCount}}</span></div>
+            </a>
+        </div>
+    </div>
+</div>
+@endif
+<script>
+//----------loadMore----------
+    $("#customLoadMore").click(function (){ 
+        console.log("hello");           
+        var loaded_data = {{count($searched)}};
+        console.log(loaded_data);
+        $.ajax({
+            url:"{{route('searchOnFilter')}}",
+            type:'GET',
+            data:{
+                search: search,
+                loadedProducts: loaded_data,
+                
+            },
+            success: function(response)
+            {
+                console.log("loadmoredone");
+                $('#productlisting').html(response.data);
+            }
+        })
+    });
+</script>

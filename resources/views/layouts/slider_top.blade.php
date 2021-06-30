@@ -25,7 +25,7 @@
             @endforeach  
               
               
-              <a href="#" target="_self" class="bnslider-slide ">
+              <!-- <a href="#" target="_self" class="bnslider-slide ">
                 <div class="bnslider-image-mobile lazyload fade-up-fast" data-bgset="images/skins/electronics/slider/slide-electronics-01-m.png" data-sizes="auto"></div>
                 <div class="bnslider-image lazyload fade-up-fast" data-bgset="images/skins/electronics/slider/slide-electronics-01.png" data-sizes="auto"></div>
                 <div class="bnslider-text-wrap bnslider-overlay container">
@@ -60,7 +60,7 @@
                     </div>
                   </div>
                 </div>
-              </a>
+              </a> -->
             </div>
             <div class="bnslider-loader"></div>
             <div class="bnslider-arrows d-sm-none container">

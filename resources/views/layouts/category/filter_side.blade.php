@@ -54,7 +54,7 @@
                   </ul>
                 </div>
               </div> -->
-              <div class="sidebar-block filter-group-block collapsed">
+              <!-- <div class="sidebar-block filter-group-block collapsed">
                 <div class="sidebar-block_title">
                   <span>Colors</span>
                   <span class="toggle-arrow"><span></span><span></span></span>
@@ -73,8 +73,8 @@
                     <li><a href="#" data-tooltip="White" title="White"><span class="value"><img src="images/colorswatch/color-white.png" alt=""></span><span class="colorname">White (58)</span></a></li>
                   </ul>
                 </div>
-              </div>
-              <div class="sidebar-block filter-group-block collapsed">
+              </div> -->
+              <!-- <div class="sidebar-block filter-group-block collapsed">
                 <div class="sidebar-block_title">
                   <span>Size</span>
                   <span class="toggle-arrow"><span></span><span></span></span>
@@ -90,7 +90,7 @@
                     <li data-value="XXXL"><a href="#">XXXL</a></li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
               <div class="sidebar-block filter-group-block collapsed">
                 <div class="sidebar-block_title">
                   <span>Brands</span>
@@ -119,9 +119,11 @@
                 </div>
                 <div class="sidebar-block_content">
                   <ul class="category-list">
-                    <li><a href="#" class="price">Under $100</a></li>
-                    <li><a href="#"class="price">$100-$200</a></li>
-                    <li class="active"><a href="#" class="price">Above $200</a></li>
+                    <li><a href="#" class="price">Under $500</a></li>
+                    <li><a href="#" class="price">Under $1000</a></li>
+                    <li><a href="#" class="price">Under $2000</a></li>
+                    <li><a href="#" class="price">Under $3000</a></li>
+                    <li><a href="#" class="price">Above $3000</a></li>
                   </ul>
                 </div>
               </div>

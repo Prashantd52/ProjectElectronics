@@ -71,7 +71,7 @@
                     <div class="prd-hide-mobile"><a href="#" class="circle-label-qview "><i class="icon-eye"></i><span>QUICK VIEW</span></a></div>
                   </div>
                   <div class="prd-price">
-                    <div class="price-new">$ {{$product->min_price}}</div>
+                    <div class="price-new">$ {{$product->min_price +0}}</div>
                   </div>
                   <div class="prd-action">
                     <div class="prd-action-left">

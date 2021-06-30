@@ -1,7 +1,8 @@
+
 <!-- Filter Row -->
 <div class="filter-row">
           <div class="row">
-            <div class="items-count">35 item(s)</div>
+            <div class="items-count"><span id="catItemCount">{{$itemCount}}</span> item(s)</div>
             <div class="select-wrap d-none d-md-flex">
               <div class="select-label">SORT:</div>
               <div class="select-wrapper select-wrapper-xxs">

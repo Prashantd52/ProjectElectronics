@@ -176,5 +176,4 @@
                 min-height: 65vh;
             }
         }
-        
 </style>

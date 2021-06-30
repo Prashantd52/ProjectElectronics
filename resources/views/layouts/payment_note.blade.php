@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="payment-notification-close"><i class="icon-close-bold"></i></div>
-          <div class="payment-notification-qw prd-hide-mobile js-prd-quickview" data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i></div>
+          <div class="payment-notification-qw prd-hide-mobile " onclick="getQuickviewData('{{route('electronic.product',$products[0]->slug)}}','{{$products[0]->name}}','{{$img_url}}{{$products[0]->img_path}}','{{$products[0]->description}}',{{$products[0]->min_price +0}})"><i class="icon-eye"></i></div>
         </div>
       </div>
     </div>

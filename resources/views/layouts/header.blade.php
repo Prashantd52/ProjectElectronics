@@ -41,7 +41,7 @@
               <!-- Header Wishlist -->
               <div class="dropdn dropdn_wishlist">
                 <a href="{{route('electronic.account_wishlist')}}" class="dropdn-link only-icon wishlist-link ">
-                  <i class="icon-heart"></i><span class="dropdn-link-txt">Wishlist</span><span class="wishlist-qty" id="wishlist_quant1">3</span>
+                  <i class="icon-heart"></i><span class="dropdn-link-txt">Wishlist</span><span class="wishlist-qty" id="wishlist_quant1">0</span>
                 </a>
               </div>
               <!-- /Header Wishlist -->
@@ -158,7 +158,7 @@
                 <!-- Header Compare -->
                 <div class="dropdn dropdn_compare">
                   <a href="{{route('electronic.account_wishlist')}}"  class="dropdn-link only-icon compare-link ">
-                    <i class="icon-compare"></i><span class="dropdn-link-txt">Wishlist</span><span class="compare-qty" id="wishlist_quant2">3</span>
+                    <i class="icon-compare"></i><span class="dropdn-link-txt">Wishlist</span><span class="compare-qty" id="wishlist_quant2">0</span>
                   </a>
                 </div>
                 <!-- /Header Compare -->

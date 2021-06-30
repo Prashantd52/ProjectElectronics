@@ -30,22 +30,7 @@
                             </ul> 
                     </li> 
                     @endforeach
-                    <!-- <li class="active"><a href="#" title="Casual" class="open">Casual&nbsp;<span>(30)</span></a>
-                      <div class="toggle-category js-toggle-category"><span><i class="icon-angle-down"></i></span></div>
-                      <ul class="category-list category-list">
-                        <li><a href="#" title="Men">Men&nbsp;<span>(10)</span></a></li>
-                        <li><a href="#" title="Women">Women&nbsp;<span>(10)</span></a></li>
-                        <li><a href="#" title="Accessories">Accessories&nbsp;<span>(10)</span></a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#" title="T-Shirts" class="open">T-Shirts</a></li>
-                    <li><a href="#" title="Medical" class="open">Medical</a></li>
-                    <li><a href="#" title="FoodMarket" class="open">FoodMarket</a></li>
-                    <li><a href="#" title="Bikes" class="open">Bikes&nbsp;<span>(12)</span></a></li>
-                    <li><a href="#" title="Cosmetics" class="open">Cosmetics&nbsp;<span>(16)</span></a></li>
-                    <li><a href="#" title="Fishing" class="open">Fishing&nbsp;<span>(20)</span></a></li>
-                    <li><a href="#" title="Electronics" class="open">Electronics&nbsp;<span>(15)</span></a></li>
-                    <li><a href="#" title="Games" class="open">Games&nbsp;<span>(14)</span></a></li> -->
+                    
                   </ul>
                 </div>
               </div>
@@ -98,6 +83,7 @@
                     <li><a href="#" class="brandName">{{$brand}}</a></li>
                     @endforeach
                     @else
+                    <li><a href="#" class="brandName">No Specific Brand</a></li>
                     <li>No Brands Available For the search result</li>
                     @endif
                   </ul>
@@ -110,9 +96,11 @@
                 </div>
                 <div class="sidebar-block_content">
                   <ul class="category-list">
-                    <li><a href="#" class="Price">Under $100</a></li>
-                    <li><a href="#" class="Price">$100-$200</a></li>
-                    <li><a href="#" class="Price">Above $200</a></li>
+                    <li><a href="#" class="Price">Under $500</a></li>
+                    <li><a href="#" class="Price">Under $1000</a></li>
+                    <li><a href="#" class="Price">Under $2000</a></li>
+                    <li><a href="#" class="Price">Under $3000</a></li>
+                    <li><a href="#" class="Price">Above $3000</a></li>
                   </ul>
                 </div>
               </div>

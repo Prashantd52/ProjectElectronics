@@ -17,7 +17,8 @@ class CategoryController extends Controller
         //dd($inventory,$brands);
         $category=true;
         $wished_items=$this->wishlist();
-        return view('electronic.category',compact('category','wished_items','inventory','brands','slug'));
+        $itemCount=count($inventory);
+        return view('electronic.category',compact('category','wished_items','inventory','brands','slug','itemCount'));
     }
 
     public function category_empty()
@@ -48,7 +49,20 @@ class CategoryController extends Controller
         $wished_items=$this->wishlist();
 
         $category_inventory=$this->getInventoryForCategory($request->slug);
-        if($request->brandName)
+        if($request->brandName!="" && $request->price!="") //filter for brand and price both selected
+        {
+           //dd($request,$category_inventory);
+            $brandwiseInventory=array();
+            foreach($category_inventory as $invent)
+            {
+                if($invent->brand == $request->brandName && ($request->price!="Above $3000"?($invent->sale_price <= $request->price):($invent->sale_price > 3000)))
+                {
+                    array_push($brandwiseInventory,$invent);
+                }
+            }
+            $inventory=$this->giveMeUnRepeated($brandwiseInventory);    
+        }
+        elseif($request->brandName)         // filter when only brand selected
         {
            //dd($request,$category_inventory);
             $brandwiseInventory=array();
@@ -61,35 +75,56 @@ class CategoryController extends Controller
             }
             $inventory=$this->giveMeUnRepeated($brandwiseInventory);    
         }
-        elseif($request->price)
+        elseif($request->price)         //filter when only price selected
         {
             $pricewiseInventory=array();
 
-            if($request->price=='Under $100')
+            if($request->price!="Above $3000")
             {
                 foreach($category_inventory as $invent)
                 {
-                    if($invent->sale_price < 100)
+                    if($invent->sale_price <=$request->price )
                     {
                         array_push($pricewiseInventory,$invent);
                     }
                 }
             }
-            elseif($request->price=='$100-$200')
+            
+            // elseif($request->price=="Under $1000")
+            // {
+            //     foreach($category_inventory as $invent)
+            //     {
+            //         if($invent->sale_price < 1000)
+            //         {
+            //             array_push($pricewiseInventory,$invent);
+            //         }
+            //     } 
+            // }
+            // elseif($request->price=="Under $2000")
+            // {
+            //     foreach($category_inventory as $invent)
+            //     {
+            //         if($invent->sale_price < 2000)
+            //         {
+            //             array_push($pricewiseInventory,$invent);
+            //         }
+            //     } 
+            // }
+            // elseif($request->price=="Under $3000")
+            // {
+            //     foreach($category_inventory as $invent)
+            //     {
+            //         if($invent->sale_price < 3000)
+            //         {
+            //             array_push($pricewiseInventory,$invent);
+            //         }
+            //     } 
+            // }
+            elseif($request->price=="Above $3000")
             {
                 foreach($category_inventory as $invent)
                 {
-                    if($invent->sale_price >= 100 && $invent->sale_price <=200)
-                    {
-                        array_push($pricewiseInventory,$invent);
-                    }
-                } 
-            }
-            elseif($request->price=="Above $200")
-            {
-                foreach($category_inventory as $invent)
-                {
-                    if($invent->sale_price > 200)
+                    if($invent->sale_price > 3000)
                     {
                         array_push($pricewiseInventory,$invent);
                     }
@@ -99,8 +134,10 @@ class CategoryController extends Controller
             $inventory=$this->giveMeUnRepeated($pricewiseInventory);
 
         }
+        $itemCount=count($inventory);
         //dd($category_inventory,$brandwiseInventory);
-        return view('layouts.category.product_listing',compact('wished_items','inventory'));
+        $return_Html =view('layouts.category.product_listing',compact('wished_items','inventory'))->render();
+        return array('data'=>$return_Html, 'itemCount'=>$itemCount);
         
     }
 }

@@ -40,20 +40,26 @@
     var price ="";
 
     $(".brand").click(function(){
-        var brandName =$(this).html();
+        brandName =$(this).html();
         
         console.log(brandName);
-        filter(brandName,slug,price);
+        filter();
     })
 
     $(".price").click(function(){
-        var price =$(this).html();
+        var pricecode =$(this).html();
+        if(pricecode == "Above $3000")
+            price= pricecode;
+        else
+            price= parseInt(pricecode.replace('Under $',''));
         console.log(price);
-        filter(brandName,slug,price);
+        filter();
     })
 
-    function filter(brandName,slug,price)
+    function filter()
     {
+        console.log(brandName);
+        console.log(price);
         $.ajax({
             type:'GET',
             url:"{{route('categoryFilter')}}",
@@ -63,8 +69,9 @@
                 price: price,
             },
             success: function(response){
-                $("#productdetail").html(response);
-                console.log(response);
+                console.log(response.data);
+                $("#productdetail").html(response.data);
+                $("#catItemCount").html(response.itemCount);
                 //alert('success');
             }
         })
