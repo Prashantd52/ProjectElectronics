@@ -6,20 +6,20 @@
             <div class="select-wrap d-none d-md-flex">
               <div class="select-label">SORT:</div>
               <div class="select-wrapper select-wrapper-xxs">
-                <select class="form-control input-sm">
-                  <option value="featured">Featured</option>
-                  <option value="rating">Rating</option>
-                  <option value="price">Price</option>
+                <select class="form-control input-sm" id="categoryProductSortBy">
+                  <option selected value="latest">New Arrivals</option>
+                  <option value="LTH">Price: low to heigh</option>
+                  <option value="HTL">Price: heigh to low</option>
                 </select>
               </div>
             </div>
             <div class="select-wrap d-none d-md-flex">
               <div class="select-label">VIEW:</div>
               <div class="select-wrapper select-wrapper-xxs">
-                <select class="form-control input-sm">
-                  <option value="featured">12</option>
-                  <option value="rating">36</option>
-                  <option value="price">100</option>
+                <select class="form-control input-sm" id="inventorylimit">
+                  <option value="4">4</option>
+                  <option value="10">10</option>
+                  <option value="50">50</option>
                 </select>
               </div>
             </div>

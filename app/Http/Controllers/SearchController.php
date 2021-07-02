@@ -13,7 +13,8 @@ class SearchController extends Controller
     {
         //dd($request);
             $search=($request->search)?$request->search:'';
-            $searched_products=$this->searchInventory($search);
+            $sortBy="latest";
+            $searched_products=$this->searchInventory($search,$sortBy);
             //dd($searched_products);
             
             $temp_searched=$this->giveMeUnRepeated($searched_products); // gives unrepeated inventory
@@ -43,7 +44,7 @@ class SearchController extends Controller
     {
        //dd($request);
         $search=($request->search)?$request->search:'';
-        $searched_products=$this->searchInventory($search);
+        $searched_products=$this->searchInventory($search,$request->sortBy);
         $search_products_bycategory=array();
         $search_products_bybrand=array();
         $search_products_byPrice=array();
@@ -170,6 +171,12 @@ class SearchController extends Controller
             $temp_searched=$this->giveMeUnRepeated($searched_products);
         }
 
+        if($request->searchlimit)
+        {
+            $this->searchLimit = $request->searchlimit;
+        }
+        
+        
         $itemCount=count($temp_searched);
         $searched=array();
          $viewLimit=0;
@@ -177,10 +184,12 @@ class SearchController extends Controller
         if($request->loadedProducts)    //----------when load more performs action----
         {
             $viewLimit= $this->searchLimit + $request->loadedProducts;
+            //dd($this->searchLimit,$viewLimit,$request->loadedProducts);
         }
         else
         {
             $viewLimit= $this->searchLimit;
+            //dd($this->searchLimit,$viewLimit,$request->loadedProducts);
         }
 
         $temp_index=0;
@@ -200,53 +209,161 @@ class SearchController extends Controller
 
     
 
-    public function searchInventory($search)
+    public function searchInventory($search,$sortBy)
     {
-        $category_sub_group=$this->category_sub_group();
-        $category_sub_group_id=array();
-        
-        foreach($category_sub_group as $cat_sub_grp)
-        {  
-            $category_sub_group_id[]=$cat_sub_grp->id;
+        if($sortBy=='latest')
+        {
+            $category_sub_group=$this->category_sub_group();
+            $category_sub_group_id=array();
+            
+            foreach($category_sub_group as $cat_sub_grp)
+            {  
+                $category_sub_group_id[]=$cat_sub_grp->id;
+            }
+
+            
+            $searched_inventories=Inventory::join('products','products.id','=','inventories.product_id')
+                                    ->join('category_product','category_product.product_id','=','products.id')
+                                    ->join('categories','categories.id','=','category_product.category_id')
+                                    ->join('images','inventories.id','=','images.imageable_id')
+                                    ->where('images.imageable_type','App\Inventory')
+                                    ->where('images.featured',1)
+                                    ->whereIn('category_sub_group_id',$category_sub_group_id)
+                                    //->Where('categories.name','LIKE' ,"%$search%")
+                                    ->where('inventories.title','LIKE' ,"%$search%")
+                                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                                    ->orderby('created_at','DESC')
+                                    // ->orderby(DB::raw(case when $sortBy=='latest' then 'inventories.created_at','DESC'
+                                    //                         when $sortBy=='LTH' then 'inventories.sale_price','ASC'
+                                    //                         when $sortBy=='HTL' then 'inventories.sale_price','DESC'
+                                    //                     end))
+                                    ->get();
+            
+            $searched_products=array();
+            foreach($searched_inventories as $inventory)
+            {
+                array_push($searched_products,$inventory);
+            }
+            
+            
+            $searched_categories=Inventory::join('products','products.id','=','inventories.product_id')
+                                    ->join('category_product','category_product.product_id','=','products.id')
+                                    ->join('categories','categories.id','=','category_product.category_id')
+                                    ->join('images','inventories.id','=','images.imageable_id')
+                                    ->where('images.imageable_type','App\Inventory')
+                                    ->where('images.featured',1)
+                                    ->whereIn('category_sub_group_id',$category_sub_group_id)
+                                    ->Where('categories.name','LIKE' ,"%$search%")
+                                    //->where('inventories.title','LIKE' ,"%$search%")
+                                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                                    ->orderby('created_at','DESC')
+                                    ->get();
+            foreach($searched_categories as $category)
+            {
+                array_push($searched_products,$category);
+            }
+            return $searched_products;
         }
 
-        
-        $searched_inventories=Inventory::join('products','products.id','=','inventories.product_id')
-                                ->join('category_product','category_product.product_id','=','products.id')
-                                ->join('categories','categories.id','=','category_product.category_id')
-                                ->join('images','inventories.id','=','images.imageable_id')
-                                ->where('images.imageable_type','App\Inventory')
-                                ->where('images.featured',1)
-                                ->whereIn('category_sub_group_id',$category_sub_group_id)
-                                //->Where('categories.name','LIKE' ,"%$search%")
-                                ->where('inventories.title','LIKE' ,"%$search%")
-                                ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
-                                ->orderby('created_at','DESC')
-                                ->get();
-        
-        $searched_products=array();
-        foreach($searched_inventories as $inventory)
+        elseif($sortBy=='LTH')
         {
-            array_push($searched_products,$inventory);
+            //
+            $category_sub_group=$this->category_sub_group();
+            $category_sub_group_id=array();
+            
+            foreach($category_sub_group as $cat_sub_grp)
+            {  
+                $category_sub_group_id[]=$cat_sub_grp->id;
+            }
+
+            
+            $searched_inventories=Inventory::join('products','products.id','=','inventories.product_id')
+                                    ->join('category_product','category_product.product_id','=','products.id')
+                                    ->join('categories','categories.id','=','category_product.category_id')
+                                    ->join('images','inventories.id','=','images.imageable_id')
+                                    ->where('images.imageable_type','App\Inventory')
+                                    ->where('images.featured',1)
+                                    ->whereIn('category_sub_group_id',$category_sub_group_id)
+                                    //->Where('categories.name','LIKE' ,"%$search%")
+                                    ->where('inventories.title','LIKE' ,"%$search%")
+                                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                                    ->orderby('sale_price','ASC')
+                                    ->get();
+            
+            $searched_products=array();
+            foreach($searched_inventories as $inventory)
+            {
+                array_push($searched_products,$inventory);
+            }
+            
+            
+            $searched_categories=Inventory::join('products','products.id','=','inventories.product_id')
+                                    ->join('category_product','category_product.product_id','=','products.id')
+                                    ->join('categories','categories.id','=','category_product.category_id')
+                                    ->join('images','inventories.id','=','images.imageable_id')
+                                    ->where('images.imageable_type','App\Inventory')
+                                    ->where('images.featured',1)
+                                    ->whereIn('category_sub_group_id',$category_sub_group_id)
+                                    ->Where('categories.name','LIKE' ,"%$search%")
+                                    //->where('inventories.title','LIKE' ,"%$search%")
+                                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                                    ->orderby('sale_price','ASC')
+                                    ->get();
+            foreach($searched_categories as $category)
+            {
+                array_push($searched_products,$category);
+            }
+            return $searched_products;
         }
-        
-        
-        $searched_categories=Inventory::join('products','products.id','=','inventories.product_id')
-                                ->join('category_product','category_product.product_id','=','products.id')
-                                ->join('categories','categories.id','=','category_product.category_id')
-                                ->join('images','inventories.id','=','images.imageable_id')
-                                ->where('images.imageable_type','App\Inventory')
-                                ->where('images.featured',1)
-                                ->whereIn('category_sub_group_id',$category_sub_group_id)
-                                ->Where('categories.name','LIKE' ,"%$search%")
-                                //->where('inventories.title','LIKE' ,"%$search%")
-                                ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
-                                ->orderby('created_at','DESC')
-                                ->get();
-        foreach($searched_categories as $category)
+        elseif($sortBy=='HTL')
         {
-            array_push($searched_products,$category);
+            //
+            $category_sub_group=$this->category_sub_group();
+            $category_sub_group_id=array();
+            
+            foreach($category_sub_group as $cat_sub_grp)
+            {  
+                $category_sub_group_id[]=$cat_sub_grp->id;
+            }
+
+            
+            $searched_inventories=Inventory::join('products','products.id','=','inventories.product_id')
+                                    ->join('category_product','category_product.product_id','=','products.id')
+                                    ->join('categories','categories.id','=','category_product.category_id')
+                                    ->join('images','inventories.id','=','images.imageable_id')
+                                    ->where('images.imageable_type','App\Inventory')
+                                    ->where('images.featured',1)
+                                    ->whereIn('category_sub_group_id',$category_sub_group_id)
+                                    //->Where('categories.name','LIKE' ,"%$search%")
+                                    ->where('inventories.title','LIKE' ,"%$search%")
+                                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                                    ->orderby('sale_price','DESC')
+                                    ->get();
+            
+            $searched_products=array();
+            foreach($searched_inventories as $inventory)
+            {
+                array_push($searched_products,$inventory);
+            }
+            
+            
+            $searched_categories=Inventory::join('products','products.id','=','inventories.product_id')
+                                    ->join('category_product','category_product.product_id','=','products.id')
+                                    ->join('categories','categories.id','=','category_product.category_id')
+                                    ->join('images','inventories.id','=','images.imageable_id')
+                                    ->where('images.imageable_type','App\Inventory')
+                                    ->where('images.featured',1)
+                                    ->whereIn('category_sub_group_id',$category_sub_group_id)
+                                    ->Where('categories.name','LIKE' ,"%$search%")
+                                    //->where('inventories.title','LIKE' ,"%$search%")
+                                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                                    ->orderby('sale_price','DESC')
+                                    ->get();
+            foreach($searched_categories as $category)
+            {
+                array_push($searched_products,$category);
+            }
+            return $searched_products;
         }
-        return $searched_products;
     }
 }

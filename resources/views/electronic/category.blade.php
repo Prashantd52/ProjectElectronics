@@ -56,6 +56,19 @@
         filter();
     })
 
+    $("#categoryProductSortBy").change(function(){
+        sortBy= $(this).val();
+        // alert("You have selected the- " + sortBy);
+        filter();
+    }); 
+
+    $("#inventorylimit").change(function(){
+        searchlimit= parseInt($(this).val());
+        console.log(searchlimit);
+        filter();
+        //alert("You have selected the- " +searchlimit);
+    }); 
+
     function filter()
     {
         console.log(brandName);
@@ -67,7 +80,8 @@
                 slug: slug,
                 brandName: brandName,
                 price: price,
-                // loadedProducts: loaded_data,
+                sortBy: sortBy,
+                searchlimit: searchlimit,
             },
             success: function(response){
                 console.log(response.data);

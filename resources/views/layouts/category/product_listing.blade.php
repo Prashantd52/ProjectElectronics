@@ -851,6 +851,8 @@
                 loadedProducts: loaded_data,
                 brandName: brandName,
                 price: price,
+                sortBy: sortBy,
+                searchlimit: searchlimit,
             },
             success: function(response){
                 console.log(response.data);

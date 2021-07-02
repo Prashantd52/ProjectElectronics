@@ -137,6 +137,8 @@
                 //category_id: id,
                 brandName: searchByBrand,
                 price: searchByPrice,
+                sortBy: sortBy,
+                searchlimit: searchlimit,
                 
             },
             success: function(response)

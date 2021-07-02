@@ -190,6 +190,8 @@
       var search="{{$search ?? ""}}";
       var searchByBrand="";
       var searchByPrice="";
+      var sortBy='latest';
+      var searchlimit="";
 
       
         $(function(){
@@ -215,10 +217,23 @@
                   searchByPrice= parseInt(price.replace('Under $',''));
                 console.log(searchByPrice);
                 searchFilter();
-            });
+            });   
             
+            $("#sortBy").change(function(){
+                sortBy= $(this).val();
+              // alert("You have selected the- " + sortBy);
+              searchFilter();
+            }); 
+            $("#searchlimit").change(function(){
+              searchlimit= parseInt($(this).val());
+              console.log(searchlimit);
+                searchFilter();
+                //alert("You have selected the- " +searchlimit);
+              });      
 
         });
+
+            
 
         function searchCategoryFilter(id,search)
         {
@@ -240,8 +255,11 @@
 
         function searchFilter()
         {
+          console.log(search);
           console.log(searchByBrand);
           console.log(searchByPrice);
+          console.log(sortBy);
+          console.log(searchlimit);
           $.ajax({
             url:"{{route('searchOnFilter')}}",
             type:'Get',
@@ -249,33 +267,40 @@
               brandName: searchByBrand,
               price: searchByPrice,
               search: search,
+              sortBy: sortBy,
+              searchlimit: searchlimit,
             },
             success: function(response){
               console.log(response);
+              //$('#productlisting').html(response); //testing purpose only
               $('#productlisting').html(response.data);
               $('#catItemCount').html(response.itemCount);
-              
+              console.log(search);
+              console.log(searchByBrand);
+              console.log(searchByPrice);
+              console.log(sortBy);
+              console.log(searchlimit);
             }
           })
         }
 
-        // function searchPriceFilter()
-        // {
-        //   console.log(search);
-        //   $.ajax({
-        //     url:"{{route('searchOnFilter')}}",
-        //     type:'Get',
-        //     data:{
-        //       price: searchByPrice,
-        //       search: search,
-        //     },
-        //     success: function(response){
-        //       //console.log(response);
-        //       $('#productlisting').html(response);
-        //       console.log('success');
-        //     }
-        //   })
-        // }
+      {{--function searchPriceFilter()
+        {
+          console.log(search);
+          $.ajax({
+            url:"{{route('searchOnFilter')}}",
+            type:'Get',
+            data:{
+              price: searchByPrice,
+              search: search,
+            },
+            success: function(response){
+              //console.log(response);
+              $('#productlisting').html(response);
+              console.log('success');
+            }
+          })
+        }--}}
   //-------------------/Search script------------------
 
       $(".minicart-link").click(function(){
