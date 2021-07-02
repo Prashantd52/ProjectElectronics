@@ -1,7 +1,7 @@
 @php
   $total_products=0;
 @endphp 
-<div class="prd-grid product-listing data-to-show-3 data-to-show-md-3 data-to-show-sm-2 js-category-grid" data-grid-tab-content>
+<div class="prd-grid {{--product-listing--}} data-to-show-3 data-to-show-md-3 data-to-show-sm-2 js-category-grid " data-grid-tab-content>
 @foreach($inventory as $product)
 
   @php
@@ -15,6 +15,7 @@
       }
     }
   @endphp 
+
   <div class="prd prd--style2 prd-labels--max prd-labels-shadow " style="opacity:1;">
                   <div class="prd-inside">
                     <div class="prd-img-area">
@@ -67,7 +68,11 @@
                         <div class="prd-action">
                           <div class="prd-action-left">
                             <form action="#">
-                              <button class="btn js-prd-addtocart" onclick="addToCart({{$product->id}})" data-product='{"name": "Leather Pegged Pants", "path":"{{$img_url}}{{$product->img_path}}", "url":"{{route('electronic.product')}}", "aspect_ratio":0.778}'>Add To Cart</button>
+                              @if($product->stock_quantity > 0)
+                              <button class="btn js-prd-addtocart" onclick="addToCart({{$product->id}})" data-product='{"name": "Leather Pegged Pants", "path":"{{$img_url}}{{$product->img_path}}", "url":"{{route('electronic.product')}}", "aspect_ratio":0.778}'>Add To Cart</button> 
+                              @else
+                                <button class="btn js-prd-addtocart" disabled title="Out of Stock">Add to cart</button>
+                              @endif
                             </form>
                           </div>
                         </div>
@@ -97,7 +102,7 @@
             </div>
 </div>
 @endif
-                {{--<!-- <div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+              {{--<!-- <div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
                   <div class="prd-inside">
                     <div class="prd-img-area">
                       <a href="{{route('electronic.product')}}" class="prd-img image-hover-scale image-container">
@@ -813,21 +818,45 @@
                   </div>
                 </div> -->--}}
 </div>
-<!-- <div class="loader-horizontal-sm js-loader-horizontal-sm d-none" data-loader-horizontal style="opacity: 0;"><span></span></div>
-              <div class="circle-loader-wrap">
-                <div class="circle-loader">
-                  <a href="ajax/ajax-product-category.json" data-total="30" data-loaded="6" data-load="6" class="lazyload js-circle-loader">
-                    <svg id="svg_d" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="50%" cy="50%" r="63" fill="transparent"></circle>
-                      <circle class="js-circle-bar" cx="50%" cy="50%" r="63" fill="transparent"></circle>
-                    </svg>
-                    <svg id="svg_m" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="50%" cy="50%" r="50" fill="transparent"></circle>
-                      <circle class="js-circle-bar" cx="50%" cy="50%" r="50" fill="transparent"></circle>
-                    </svg>
-                    <div class="circle-loader-text">Load More</div>
-                    <div class="circle-loader-text-alt"><span class="js-circle-loader-start"></span>&nbsp;out of&nbsp;<span class="js-circle-loader-end"></span></div>
-                  </a>
-                </div>
-              </div>
-</div> -->
+@if(count($inventory)<$itemCount)
+    <div class="circle-loader-wrap">
+        <div class="circle-loader">
+            <a href="#" id="customLoadMore" data-total="{{$itemCount}}" data-loaded="{{count($inventory)}}" data-load="4" class="lazyload js-circle-loader">
+                <svg id="svg_d" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50%" cy="50%" r="63" fill="transparent"></circle>
+                    <circle class="js-circle-bar" cx="50%" cy="50%" r="63" fill="transparent"></circle>
+                </svg>
+                <svg id="svg_m" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50%" cy="50%" r="50" fill="transparent"></circle>
+                    <circle class="js-circle-bar" cx="50%" cy="50%" r="50" fill="transparent"></circle>
+                </svg>
+                  <div class="circle-loader-text">Load More</div>
+                  <div class="circle-loader-text-alt"><span >{{count($inventory)}}</span>&nbsp;out of&nbsp;<span >{{$itemCount}}</span></div>
+            </a>
+        </div>
+    </div>
+@endif
+<script>
+  $("#customLoadMore").click(function (){ 
+    console.log("hello");           
+    var loaded_data = {{count($inventory)}};
+    console.log(loaded_data);
+    console.log(brandName);
+    console.log(price);
+    $.ajax({
+            type:'GET',
+            url:"{{route('categoryFilter')}}",
+            data:{
+                slug: slug,
+                loadedProducts: loaded_data,
+                brandName: brandName,
+                price: price,
+            },
+            success: function(response){
+                console.log(response.data);
+                $("#productdetail").html(response.data);
+                //alert('success');
+            }
+        })
+  });
+</script>

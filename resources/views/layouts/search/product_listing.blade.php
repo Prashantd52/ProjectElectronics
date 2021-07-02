@@ -126,12 +126,17 @@
         console.log("hello");           
         var loaded_data = {{count($searched)}};
         console.log(loaded_data);
+        console.log(searchByBrand);
+        console.log(searchByPrice);
         $.ajax({
             url:"{{route('searchOnFilter')}}",
             type:'GET',
             data:{
                 search: search,
                 loadedProducts: loaded_data,
+                //category_id: id,
+                brandName: searchByBrand,
+                price: searchByPrice,
                 
             },
             success: function(response)

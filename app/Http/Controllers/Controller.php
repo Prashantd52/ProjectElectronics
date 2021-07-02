@@ -76,10 +76,11 @@ class Controller extends BaseController
                     ->join('products','category_product.product_id','=','products.id')
                     ->join('inventories','products.id','=','inventories.product_id')
                     ->join('images','inventories.id','=','images.imageable_id')
+                    ->join('shops','inventories.shop_id','=','shops.id')
                     ->where('images.imageable_type','App\Inventory')
                     ->where('images.featured',1)
                     ->whereIn('category_sub_group_id',$category_sub_group_id)
-                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path')
+                    ->select('inventories.*','inventories.title as name','inventories.sale_price as min_price','category_product.category_id','categories.category_sub_group_id','categories.name as category_name','categories.slug as category_slug','images.path as img_path','shops.legal_name as shop_name')
                     //->inRandomOrder()
                     ->orderby('created_at','DESC')
                     ->get();

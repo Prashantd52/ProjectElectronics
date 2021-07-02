@@ -67,6 +67,7 @@
                 slug: slug,
                 brandName: brandName,
                 price: price,
+                // loadedProducts: loaded_data,
             },
             success: function(response){
                 console.log(response.data);

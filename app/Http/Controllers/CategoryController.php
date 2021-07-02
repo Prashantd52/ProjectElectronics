@@ -7,17 +7,31 @@ use DB;
 
 class CategoryController extends Controller
 {
+    public $inventoryLimit=4;
     public function category($slug)
     {
         //dd($slug);
         $category_inventory=$this->getInventoryForCategory($slug);
-        $inventory=$this->giveMeUnRepeated($category_inventory);
-        $brands=$this->getuniqueBrands($inventory);
+        $temp_inventory=$this->giveMeUnRepeated($category_inventory);
+        $brands=$this->getuniqueBrands($category_inventory);
         //dd($category_inventory);
-        //dd($inventory,$brands);
+        //dd($temp_inventory,$brands);
         $category=true;
         $wished_items=$this->wishlist();
-        $itemCount=count($inventory);
+        $itemCount=count($temp_inventory);
+
+        $inventory=array();
+        $viewLimit=0;
+
+        $viewLimit= $this->inventoryLimit;
+        $temp_index=0;
+
+        foreach($temp_inventory as $temp)
+        {
+            if($temp_index < $viewLimit)
+                array_push($inventory,$temp);
+            $temp_index++;
+        }
         return view('electronic.category',compact('category','wished_items','inventory','brands','slug','itemCount'));
     }
 
@@ -60,7 +74,7 @@ class CategoryController extends Controller
                     array_push($brandwiseInventory,$invent);
                 }
             }
-            $inventory=$this->giveMeUnRepeated($brandwiseInventory);    
+            $temp_inventory=$this->giveMeUnRepeated($brandwiseInventory);    
         }
         elseif($request->brandName)         // filter when only brand selected
         {
@@ -73,7 +87,7 @@ class CategoryController extends Controller
                     array_push($brandwiseInventory,$invent);
                 }
             }
-            $inventory=$this->giveMeUnRepeated($brandwiseInventory);    
+            $temp_inventory=$this->giveMeUnRepeated($brandwiseInventory);    
         }
         elseif($request->price)         //filter when only price selected
         {
@@ -131,12 +145,38 @@ class CategoryController extends Controller
                 } 
             }
 
-            $inventory=$this->giveMeUnRepeated($pricewiseInventory);
+            $temp_inventory=$this->giveMeUnRepeated($pricewiseInventory);
 
         }
-        $itemCount=count($inventory);
+        else
+        {
+            $temp_inventory=$this->giveMeUnRepeated($category_inventory);
+        }
+        $itemCount=count($temp_inventory);
         //dd($category_inventory,$brandwiseInventory);
-        $return_Html =view('layouts.category.product_listing',compact('wished_items','inventory'))->render();
+        
+        $inventory=array();
+        $viewLimit=0;
+
+        if($request->loadedProducts)    //----------when load more performs action----
+        {
+            $viewLimit= $this->inventoryLimit + $request->loadedProducts;
+        }
+        else
+        {
+            $viewLimit= $this->inventoryLimit;
+        }
+
+        $temp_index=0;
+
+        foreach($temp_inventory as $temp)
+        {
+            if($temp_index < $viewLimit)
+                array_push($inventory,$temp);
+            $temp_index++;
+        }
+
+        $return_Html =view('layouts.category.product_listing',compact('wished_items','inventory','itemCount'))->render();
         return array('data'=>$return_Html, 'itemCount'=>$itemCount);
         
     }

@@ -82,8 +82,8 @@
                     @foreach($brands as $brand)
                     <li><a href="#" class="brandName">{{$brand}}</a></li>
                     @endforeach
-                    @else
                     <li><a href="#" class="brandName">No Specific Brand</a></li>
+                    @else
                     <li>No Brands Available For the search result</li>
                     @endif
                   </ul>

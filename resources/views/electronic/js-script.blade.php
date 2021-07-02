@@ -194,8 +194,8 @@
       
         $(function(){
             $(".brandName").click(function (){
-              var parentclass= $(this).parent().attr("class");
-              if(parentclass == 'active')
+              var nobrand= $(this).html();
+              if(nobrand == 'No Specific Brand')
               {
                 searchByBrand="";
               }

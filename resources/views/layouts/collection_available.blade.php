@@ -11,7 +11,7 @@
         <!-- <h5 class="collection-item-qty">15 Items</h5> -->
     </div>
   @endif
-  @endforeach();
+  @endforeach()
         <!-- <div class="collection-grid-2-item w-100 text-center">
             <a href="" class="bnr-wrap collection-grid-2-item-inside">
               <div class="collection-grid-2-img image-container image-hover-scale" style="padding-bottom: 80.0%">

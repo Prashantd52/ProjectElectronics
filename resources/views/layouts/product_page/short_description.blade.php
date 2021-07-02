@@ -75,8 +75,8 @@
                   </p>
                   <p>Collection: <span> <a href="{{route('electronic.category',$product->category_slug)}}" data-toggle="tooltip" data-placement="top" data-original-title="View all">{{$product->category_name}}</a></span></p>
                   <p>Sku: <span data-sku="">{{$product->sku}}</span></p>
-                  <p>Vendor: <span>Banita</span></p>
-                  <p>Barcode: <span>314363563</span></p>
+                  <p>Vendor: <span>{{$product->shop_name}}</span></p>
+                  <p>Barcode: <span>{{$product->barcode}}</span></p>
                 </div>
               </div>
               <div class="order-0 order-md-100">

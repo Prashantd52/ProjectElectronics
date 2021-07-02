@@ -25,9 +25,9 @@
               <div class="select-label">VIEW:</div>
               <div class="select-wrapper select-wrapper-xxs">
                 <select class="form-control input-sm">
-                  <option value="featured">12</option>
-                  <option value="rating">36</option>
-                  <option value="price">100</option>
+                  <option value="4">4</option>
+                  <option value="10">10</option>
+                  <option value="50">50</option>
                 </select>
               </div>
             </div>  
