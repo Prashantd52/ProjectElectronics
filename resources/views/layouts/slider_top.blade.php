@@ -3,7 +3,7 @@
         <div class="container">
           <div class="bnslider-wrapper">
             <div class="bnslider keep-scale" data-start-width='1920' data-start-height='785' data-start-mwidth='414' data-start-mheight='736' id="bnslider-1586608150816" data-autoplay="true" data-speed="5000">
-            @foreach($main_slider as $slider)
+            {{--@foreach($main_slider as $slider)
             <a href="#" target="_self" class="bnslider-slide ">
                 <div class="bnslider-image-mobile lazyload fade-up-fast" data-bgset="{{$img_url}}{{$slider->path}}" data-sizes="auto"></div>
                 <div class="bnslider-image lazyload fade-up-fast" data-bgset="{{$img_url}}{{$slider->path}}" data-sizes="auto"></div>
@@ -22,10 +22,10 @@
                   </div>
                 </div>
               </a>
-            @endforeach  
+            @endforeach--}}  
               
               
-              <!-- <a href="#" target="_self" class="bnslider-slide ">
+              <a href="#" target="_self" class="bnslider-slide ">
                 <div class="bnslider-image-mobile lazyload fade-up-fast" data-bgset="images/skins/electronics/slider/slide-electronics-01-m.png" data-sizes="auto"></div>
                 <div class="bnslider-image lazyload fade-up-fast" data-bgset="images/skins/electronics/slider/slide-electronics-01.png" data-sizes="auto"></div>
                 <div class="bnslider-text-wrap bnslider-overlay container">
@@ -60,7 +60,7 @@
                     </div>
                   </div>
                 </div>
-              </a> -->
+              </a>
             </div>
             <div class="bnslider-loader"></div>
             <div class="bnslider-arrows d-sm-none container">

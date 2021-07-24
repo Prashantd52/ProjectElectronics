@@ -319,13 +319,14 @@
     //alert('hello')
     //alert('functionworking');
     document.getElementById("quickView").style.display= "block";
-
+    
     $("#product_name").html(product_name);
     $("#product_price").html("$"+product_price);
     $("#product_description").html(product_desripction);
     $("#product_image").attr("src",product_img_path);
     $("#product_link").attr("href",product_link);
 
+    
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
     // When the user clicks on <span> (x), close the modal
@@ -334,4 +335,20 @@
         document.getElementById("quickView").style.display = "none";
       }
   }
+
+  //testing purpose------------------
+  // function getQuickviewData(product_link,product_name,product_img_path,product_desripction,product_price)
+  // { 
+  //   $.ajax({
+  //     type:'GET',
+  //     url:"{{route('quickview')}}",
+  //     Data:{
+  //       product_slug: product_link,
+  //     },
+  //     success: function(response)
+  //     {
+  //       console.log(response);
+  //     }
+  //   });
+
   </script>

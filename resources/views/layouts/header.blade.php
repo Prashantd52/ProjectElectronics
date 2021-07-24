@@ -227,7 +227,7 @@
                   <!-- for loop closedfor category_subroups-->
                   <!--/for loop closed for category_group-->                  
 
-                  <li class="mmenu-item--simple"><a href="#">Pages</a>
+                  {{-- <li class="mmenu-item--simple"><a href="#">Pages</a>
                     <div class="mmenu-submenu">
                       <ul class="submenu-list">
                         <li><a href="{{route('electronic.product')}}">Product page</a>
@@ -282,7 +282,7 @@
                         <li><a href="{{route('electronic.collections')}}" target="_blank">Collections</a></li>
                       </ul>
                     </div>
-                  </li> 
+                  </li>  --}}
                   <!--<li class="mmenu-item--mega"><a href="collections.html"><span>Electronics Shop<span class="menu-label">SKIN</span></span></a>
                     <div class="mmenu-submenu mmenu-submenu--has-bottom">
                       <div class="mmenu-submenu-inside">

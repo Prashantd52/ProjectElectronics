@@ -123,3 +123,29 @@
         cursor: pointer;
     }
 </style>
+
+<script>
+
+  $(function(){
+    $(".country").change(function(){
+      let country_id=this.value;
+      console.log(country_id);
+      $.ajax({
+        type: 'GET',
+        url: "{{route('select_state')}}",
+        data:{
+            country_id: country_id,
+        },
+        success:function(response){
+            console.log(response);
+            
+            $(".state").html(response);
+            
+        }
+      })
+     
+    })
+  });
+
+
+</script>

@@ -143,7 +143,7 @@
                             @include('layouts.cart.cart_total')
                         <!--/Cart total-->
 </div>  
-@section('script')
+
 <script>
 function decrease(id,stock)
 {
@@ -191,4 +191,3 @@ function setprice(price,quantity,stock,id)
 
 
 </script>
-@endsection

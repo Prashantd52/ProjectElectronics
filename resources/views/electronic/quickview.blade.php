@@ -56,31 +56,34 @@
                             </div> -->
                         </div>
                         
-                        <div class="prd-block_actions prd-block_actions--wishlist">
+                        <!-- <div class="prd-block_actions prd-block_actions--wishlist">
                             <div class="prd-block_qty">
                                 <div class="qty qty-changer">
                                     <button class="decrease js-qty-button"></button>
-                                    <input type="number" class="qty-input" name="quantity" value="1" data-min="1" data-max="1000">
+                                    <input type="number" class="qty-input" id="quantity_product_id" name="quantity" value="1" data-min="1" data-max="1000">
                                     <button class="increase js-qty-button"></button>
                                 </div>
                             </div>
                             <div class="btn-wrap">
-                                <button class="btn btn--add-to-cart js-prd-addtocart" data-product='{"name":"Leather Pegged Pants ", "url": "product.html", "path": "images/skins/fashion/products/product-01-1.jpg", "aspect_ratio ": "0.78"}'>Add to cart</button>
+                                
+                                <button class="btn btn--add-to-cart js-prd-addtocart"  data-product='{"name":"Leather Pegged Pants ", "url": "product.html", "path": "images/skins/fashion/products/product-01-1.jpg", "aspect_ratio ": "0.78"}'>Add to cart</button>
                             </div>
                             <div class="btn-wishlist-wrap">
                                 <a href="#" class="btn-add-to-wishlist ml-auto btn-add-to-wishlist--add js-add-wishlist" title="Add To Wishlist"><i class="icon-heart-stroke"></i></a>
                                 <a href="#" class="btn-add-to-wishlist ml-auto btn-add-to-wishlist--off js-remove-wishlist" title="Remove From Wishlist"><i class="icon-heart-hover"></i></a>
                             </div>
+                        </div> -->
+                        <div class="prd-block_info_item mt-3 row row--sm-pad vert-margin-middle">
+                            <div class="col"><a id="product_link" href="#" class="btn btn--grey w-100">View Full Info</a></div>
+                            
                         </div>
+
                         <div class="prd-block_shopping-info-wrap-compact">
                             <div class="prd-block_shopping-info-compact"><i class="icon-delivery-truck"></i><span>Fast<br>Shipping</span></div>
                             <div class="prd-block_shopping-info-compact"><i class="icon-return"></i><span>Easy<br>Return</span></div>
                             <div class="prd-block_shopping-info-compact"><i class="icon-call-center"></i><span>24/7<br>Support</span></div>
                         </div>
-                        <div class="prd-block_info_item mt-3 row row--sm-pad vert-margin-middle">
-                            <div class="col"><a id="product_link" href="#" class="btn btn--grey w-100">View Full Info</a></div>
-                            
-                        </div>
+                        
                     </div>
                 </div>
             </div>

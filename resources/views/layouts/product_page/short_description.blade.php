@@ -7,6 +7,17 @@
                     <span class="prd-block_price--old">$ 29100.00</span>
                     <span class="prd-block_price--text">You Save: ${{29100 - $product->min_price}}</span>
                   </div>
+                  
+                  <!-- @if($product->offer_price)
+                  <div class="prd-block_price--actual">${{$product->offer_price +0}}</div>
+                  <div class="prd-block_price-old-wrap">
+                    <span class="prd-block_price--old">$ {{$product->sale_price +0}}</span>
+                    <span class="prd-block_price--text">You Save: ${{$product->sale_price - $product->offer_price +0}}</span>
+                  </div> 
+                  @else
+                    <div class="prd-block_price--actual">${{$product->sale_price +0}}</div>
+                  @endif -->
+                    
                 </div>
                 <div class="prd-block_viewed-wrap d-none d-md-flex">
                   <div class="prd-block_viewed">

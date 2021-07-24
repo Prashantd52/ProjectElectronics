@@ -34,6 +34,10 @@ class OrderController extends Controller
         {
                 $order->billing_address= $orderAddress->address_title.', '.$orderAddress->address_line_1.','.$orderAddress->address_line_2.','.$orderAddress->city.', ('.$orderAddress->zip_code.')';
         }
+        else
+        {
+            $order->billing_address= $request->name.', '.$request->address1.','.$request->address2.','.$request->city.', ('.$request->zip_code.')';
+        }
         $order->shipping_address=$orderAddress->address_title.' '.$orderAddress->address_line_1.','.$orderAddress->address_line_2.','.$orderAddress->city.', ('.$orderAddress->zip_code.')';
 
         $order->payment_method_id=$request->radio2;

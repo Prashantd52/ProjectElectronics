@@ -102,8 +102,12 @@ class ElectronicController extends Controller
     {
         
         $blogs=$this->blogs();
-        //dd($blogs);
-        return view('electronic.about_us',compact('blogs'));
+        $bgimg=DB::table('images')->join('category_groups','images.imageable_id','=','category_groups.id')
+                    ->where('imageable_type','App\CategoryGroup')
+                    ->where('category_groups.name','Electronics')
+                    ->first();
+        //dd($bgimg);
+        return view('electronic.about_us',compact('blogs','bgimg'));
     }
 
     public function contact_us()

@@ -37,7 +37,7 @@
         <a href="{{route('delete_carts')}}" class="btn btn--grey">Clear All</a>
     </div>
     <!--shipping option-->
-        @include('layouts.cart.shipping_option')
+        {{--@include('layouts.cart.shipping_option')--}}
     <!--/shipping option-->
     <!--products you may like-->
         @include('layouts.product_page.you_may_like')

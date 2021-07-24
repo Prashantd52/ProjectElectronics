@@ -94,3 +94,6 @@ Route::delete('electronics_clear_order_history','OrderController@clearOrderHisto
 Route::post('add_to_wishlist','AccountController@add_wishlist')->name('add_wishlist');
 Route::delete('remove_from_wishlist','AccountController@remove_wishlist')->name('remove_wishlist');
 Route::get('count_wishlist_items','AccountController@update_wishlist_count')->name('update_wishlist_count');
+
+//quickview route
+Route::get('quick_view','ProductController@quickview')->name('quickview');
